@@ -1,6 +1,6 @@
 package com.triple.clubmileage.api.dto;
 
-import com.triple.clubmileage.api.enumtype.EventAction;
+import com.triple.clubmileage.api.enumtype.ActionType;
 import com.triple.clubmileage.api.enumtype.EventType;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +20,7 @@ public class ReviewEventRequest {
     @NotNull(message = "type 값이 올바르지 않습니다.")
     private EventType type;
     @NotNull(message = "action 값이 올바르지 않습니다.")
-    private EventAction action;
+    private ActionType action;
     private String reviewId;
     @NotBlank(message = "리뷰 내용은 빈값 일 수 없습니다.")
     private String content;
@@ -34,7 +34,7 @@ public class ReviewEventRequest {
 
     @AssertTrue(message = "리뷰 수정&삭제 시 리뷰ID 값이 빈값 일 수 없습니다.")
     public boolean isExistReviewId() {
-        if (!EventAction.ADD.equals(action)) {
+        if (!ActionType.ADD.equals(action)) {
             return !isEmpty(reviewId);
         }
         return true;

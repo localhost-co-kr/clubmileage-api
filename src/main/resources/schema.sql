@@ -1,0 +1,33 @@
+DROP TABLE IF EXISTS MEMBER;
+DROP TABLE IF EXISTS PLACE;
+DROP TABLE IF EXISTS MILEAGE;
+DROP TABLE IF EXISTS REVIEW;
+
+CREATE TABLE MEMBER
+(
+    id BINARY(16) NOT NULL COMMENT '유저ID',
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE PLACE
+(
+    id BINARY(16) NOT NULL COMMENT '장소ID',
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE MILEAGE
+(
+    id      BINARY(16) NOT NULL COMMENT '마일리지ID',
+    mileage int        NOT NULL COMMENT '적립마일리지',
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE REVIEW
+(
+    id      BINARY(16) NOT NULL COMMENT '리뷰ID',
+    userId  BINARY(16) NOT NULL,
+    placeId BINARY(16) NOT NULL,
+    PRIMARY KEY (id),
+    foreign key (userId) references MEMBER (id),
+    foreign key (placeId) references PLACE (id)
+);

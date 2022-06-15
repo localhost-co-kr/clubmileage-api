@@ -1,10 +1,10 @@
 package com.triple.clubmileage.api.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
+@AllArgsConstructor(staticName = "of")
 public class ReviewEventResponse {
 
     private String reviewId;

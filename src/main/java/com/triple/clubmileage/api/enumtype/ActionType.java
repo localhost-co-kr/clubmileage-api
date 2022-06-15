@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum EventAction implements CommonCode {
+public enum ActionType implements CommonCode {
 
     ADD("생성"),
     MOD("수정"),
