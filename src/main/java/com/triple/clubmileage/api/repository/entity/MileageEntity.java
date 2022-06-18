@@ -3,9 +3,11 @@ package com.triple.clubmileage.api.repository.entity;
 import com.triple.clubmileage.api.enumtype.MileageType;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -19,12 +21,12 @@ public class MileageEntity {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(columnDefinition = "BINARY(16)")
     private UUID id;
-
     @Enumerated(EnumType.STRING)
     private MileageType mileageType;
-
     private long mileage;
-
     @Column(columnDefinition = "BINARY(16)")
     private UUID userId;
+    @CreationTimestamp
+    private LocalDateTime createdAt;
+
 }

@@ -1,14 +1,7 @@
-DROP TABLE IF EXISTS MEMBER;
 DROP TABLE IF EXISTS PLACE;
-DROP TABLE IF EXISTS MILEAGE;
 DROP TABLE IF EXISTS REVIEW;
 DROP TABLE IF EXISTS IMAGE;
-
-CREATE TABLE MEMBER
-(
-    id BINARY(16) NOT NULL COMMENT '유저ID',
-    PRIMARY KEY (id)
-);
+DROP TABLE IF EXISTS MILEAGE;
 
 CREATE TABLE PLACE
 (
@@ -18,30 +11,34 @@ CREATE TABLE PLACE
     PRIMARY KEY (id)
 );
 
-CREATE TABLE MILEAGE
-(
-    id          BINARY(16)  NOT NULL COMMENT '마일리지ID',
-    mileageType VARCHAR(25) NOT NULL COMMENT '마일리지타입',
-    mileage     int         NOT NULL COMMENT '적립마일리지',
-    userId      BINARY(16)  NOT NULL,
-    PRIMARY KEY (id)
-);
-
 CREATE TABLE REVIEW
 (
-    id      BINARY(16) NOT NULL COMMENT '리뷰ID',
-    userId  BINARY(16) NOT NULL,
-    placeId BINARY(16) NOT NULL,
-    createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    id        BINARY(16) NOT NULL COMMENT '리뷰ID',
+    userId    BINARY(16) NOT NULL COMMENT '유저ID',
+    placeId   BINARY(16) NOT NULL COMMENT '장소ID',
+    isDeleted TINYINT    NOT NULL DEFAULT 0 COMMENT '리뷰 삭제여부',
+    createdAt DATETIME   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '리뷰 등록시간',
+    updatedAt DATETIME            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '리뷰 수정시간',
     PRIMARY KEY (id),
-    foreign key (userId) references MEMBER (id),
     foreign key (placeId) references PLACE (id)
 );
 
 CREATE TABLE IMAGE
 (
-    id       BINARY(16) NOT NULL COMMENT '이미지ID',
-    reviewId BINARY(16) NOT NULL,
+    id        BINARY(16) NOT NULL COMMENT '이미지ID',
+    reviewId  BINARY(16) NOT NULL COMMENT '리뷰ID',
+    isDeleted TINYINT    NOT NULL DEFAULT 0 COMMENT '이미지 삭제여부',
     PRIMARY KEY (id)
 );
+
+CREATE TABLE MILEAGE
+(
+    id          BINARY(16)  NOT NULL COMMENT '마일리지ID',
+    mileageType VARCHAR(25) NOT NULL COMMENT '마일리지타입',
+    mileage     int         NOT NULL COMMENT '적립마일리지',
+    userId      BINARY(16)  NOT NULL COMMENT '유저ID',
+    createdAt   DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '마일리지 등록시간',
+    PRIMARY KEY (id)
+);
+
+CREATE INDEX mileage_user_id ON MILEAGE (userId);

@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -25,13 +26,15 @@ public class ReviewEntity {
     @Column(columnDefinition = "BINARY(16)")
     private UUID id;
     private String content;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "reviewEntity")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "reviewEntity")
     @Setter(AccessLevel.NONE)
+    @Where(clause = "IS_DELETED = false")
     private List<ImageEntity> imageEntities;
     @Column(columnDefinition = "BINARY(16)")
     private UUID userId;
     @Column(columnDefinition = "BINARY(16)")
     private UUID placeId;
+    private boolean isDeleted;
     @CreationTimestamp
     private LocalDateTime createdAt;
     @UpdateTimestamp

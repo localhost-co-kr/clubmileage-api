@@ -20,4 +20,5 @@ public class ImageEntity {
     @ManyToOne
     @JoinColumn(name = "reviewEntity.id")
     private ReviewEntity reviewEntity;
+    private boolean isDeleted;
 }
