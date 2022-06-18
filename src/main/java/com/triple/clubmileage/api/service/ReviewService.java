@@ -1,6 +1,7 @@
 package com.triple.clubmileage.api.service;
 
 import com.triple.clubmileage.api.dto.ReviewEventRequest;
+import com.triple.clubmileage.api.repository.PlaceRepository;
 import com.triple.clubmileage.api.repository.ReviewRepository;
 import com.triple.clubmileage.api.service.factory.ReviewStrategyFactory;
 import com.triple.clubmileage.api.service.strategy.EventAction;
@@ -16,11 +17,13 @@ import javax.validation.Valid;
 @Service
 public class ReviewService {
 
+    private final MileageService mileageService;
     private final ReviewRepository reviewRepository;
+    private final PlaceRepository placeRepository;
 
     public String events(@Valid ReviewEventRequest request) {
-        ReviewStrategy reviewStrategy = new ReviewStrategyFactory(reviewRepository).create(request.getAction());
-        EventAction eventAction = new EventAction(reviewStrategy);
+        ReviewStrategy reviewStrategy = new ReviewStrategyFactory(reviewRepository, placeRepository).create(request.getAction());
+        EventAction eventAction = new EventAction(mileageService, reviewStrategy);
         return eventAction.processing(request);
     }
 }

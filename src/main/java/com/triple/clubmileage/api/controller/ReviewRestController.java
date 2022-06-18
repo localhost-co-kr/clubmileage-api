@@ -19,8 +19,8 @@ public class ReviewRestController {
 
     @PostMapping("/events")
     public Mono<ReviewEventResponse> events(@Valid @RequestBody ReviewEventRequest reviewEventRequest) {
-        String reviewId = reviewService.events(reviewEventRequest);
+        String response = reviewService.events(reviewEventRequest);
 
-        return Mono.just(ReviewEventResponse.of(reviewId));
+        return Mono.just(ReviewEventResponse.of(response));
     }
 }

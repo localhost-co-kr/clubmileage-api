@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS MEMBER;
 DROP TABLE IF EXISTS PLACE;
 DROP TABLE IF EXISTS MILEAGE;
 DROP TABLE IF EXISTS REVIEW;
+DROP TABLE IF EXISTS IMAGE;
 
 CREATE TABLE MEMBER
 (
@@ -11,14 +12,18 @@ CREATE TABLE MEMBER
 
 CREATE TABLE PLACE
 (
-    id BINARY(16) NOT NULL COMMENT '장소ID',
+    id           BINARY(16)   NOT NULL COMMENT '장소ID',
+    name         VARCHAR(100) NOT NULL COMMENT '장소명',
+    introduction VARCHAR(200) NOT NULL COMMENT '장소소개',
     PRIMARY KEY (id)
 );
 
 CREATE TABLE MILEAGE
 (
-    id      BINARY(16) NOT NULL COMMENT '마일리지ID',
-    mileage int        NOT NULL COMMENT '적립마일리지',
+    id          BINARY(16)  NOT NULL COMMENT '마일리지ID',
+    mileageType VARCHAR(25) NOT NULL COMMENT '마일리지타입',
+    mileage     int         NOT NULL COMMENT '적립마일리지',
+    userId      BINARY(16)  NOT NULL,
     PRIMARY KEY (id)
 );
 
@@ -27,7 +32,16 @@ CREATE TABLE REVIEW
     id      BINARY(16) NOT NULL COMMENT '리뷰ID',
     userId  BINARY(16) NOT NULL,
     placeId BINARY(16) NOT NULL,
+    createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (id),
     foreign key (userId) references MEMBER (id),
     foreign key (placeId) references PLACE (id)
+);
+
+CREATE TABLE IMAGE
+(
+    id       BINARY(16) NOT NULL COMMENT '이미지ID',
+    reviewId BINARY(16) NOT NULL,
+    PRIMARY KEY (id)
 );
