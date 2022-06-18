@@ -8,6 +8,8 @@ CREATE TABLE PLACE
     id           BINARY(16)   NOT NULL COMMENT '장소ID',
     name         VARCHAR(100) NOT NULL COMMENT '장소명',
     introduction VARCHAR(200) NOT NULL COMMENT '장소소개',
+    createdAt    DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '장소 등록시간',
+    updatedAt    DATETIME              DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '장소 수정시간',
     PRIMARY KEY (id)
 );
 
@@ -23,13 +25,20 @@ CREATE TABLE REVIEW
     foreign key (placeId) references PLACE (id)
 );
 
+CREATE INDEX index_review_user_id_place_id ON REVIEW (userId, placeId);
+CREATE INDEX index_review_place_id ON REVIEW (placeId);
+
 CREATE TABLE IMAGE
 (
     id        BINARY(16) NOT NULL COMMENT '이미지ID',
     reviewId  BINARY(16) NOT NULL COMMENT '리뷰ID',
     isDeleted TINYINT    NOT NULL DEFAULT 0 COMMENT '이미지 삭제여부',
+    createdAt DATETIME   NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '장소 등록시간',
+    updatedAt DATETIME            DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '장소 수정시간',
     PRIMARY KEY (id)
 );
+
+CREATE INDEX index_image_review_id ON IMAGE (reviewId);
 
 CREATE TABLE MILEAGE
 (
@@ -41,4 +50,4 @@ CREATE TABLE MILEAGE
     PRIMARY KEY (id)
 );
 
-CREATE INDEX mileage_user_id ON MILEAGE (userId);
+CREATE INDEX index_mileage_user_id ON MILEAGE (userId);

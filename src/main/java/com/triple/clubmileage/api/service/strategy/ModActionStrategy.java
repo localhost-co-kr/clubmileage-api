@@ -65,6 +65,10 @@ public class ModActionStrategy implements ReviewStrategy {
             log.error("타인의 리뷰 수정 요청 userId = [{}], reviewId = [{}]", request.getUserId(), request.getReviewId());
             throw new ClubmilageApiException(ClubmileageExceptionCode.AUTHORIZATION_FAIL);
         }
+        if (reviewEntity.isDeleted()) {
+            log.error("삭제된 리뷰 수정 요청 userId = [{}], reviewId = [{}]", request.getUserId(), request.getReviewId());
+            throw new ClubmilageApiException(ClubmileageExceptionCode.ALREADY_DELETED_REVIEW);
+        }
     }
 
     private List<MileageDto> calculatorMileage(ReviewEntity reviewEntity, int imageCountBeforeModified) {
@@ -74,7 +78,7 @@ public class ModActionStrategy implements ReviewStrategy {
                 .filter(imageEntity -> !imageEntity.isDeleted())
                 .count();
 
-        // 리뷰 이미지 포인트 적립 및 회수
+        // 리뷰 이미지 마일리지 적립 및 회수
         if (imageCountBeforeModified > 0 && imageCountAfterModified == 0) {
             MileageDto mileageDto = MileageDtoMapper.INSTANCE.reviewEntityToMileageDto(reviewEntity, MileageType.REVIEW_IMAGE_DELETE);
             mileageDtos.add(mileageDto);
