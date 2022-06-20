@@ -24,6 +24,9 @@ dependencies {
     // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-webflux-ui
     implementation 'org.springdoc:springdoc-openapi-webflux-ui:1.6.9'
 
+    // https://mvnrepository.com/artifact/com.github.danielwegener/logback-kafka-appender
+    implementation('com.github.danielwegener:logback-kafka-appender:0.1.0')
+
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.0'
 
