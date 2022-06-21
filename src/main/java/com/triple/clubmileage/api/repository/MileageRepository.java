@@ -8,6 +8,6 @@ import java.util.UUID;
 
 public interface MileageRepository extends JpaRepository<MileageEntity, UUID> {
 
-    @Query("SELECT SUM(m.mileage) FROM MileageEntity m")
+    @Query("SELECT SUM(m.mileage) FROM MileageEntity m WHERE m.userId = :userId")
     Long selectTotalMileage(UUID userId);
 }

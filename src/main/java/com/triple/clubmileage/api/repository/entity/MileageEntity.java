@@ -19,14 +19,17 @@ public class MileageEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(columnDefinition = "BINARY(16)")
+    @Column(name = "id", columnDefinition = "UUID")
     private UUID id;
     @Enumerated(EnumType.STRING)
+    @Column(name = "mileageType")
     private MileageType mileageType;
+    @Column(name = "mileage")
     private long mileage;
-    @Column(columnDefinition = "BINARY(16)")
+    @Column(name = "userId", columnDefinition = "UUID")
     private UUID userId;
     @CreationTimestamp
+    @Column(name = "createdAt")
     private LocalDateTime createdAt;
 
 }

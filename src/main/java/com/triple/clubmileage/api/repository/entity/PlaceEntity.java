@@ -19,13 +19,17 @@ public class PlaceEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(columnDefinition = "BINARY(16)")
+    @Column(name = "id", columnDefinition = "UUID")
     private UUID id;
+    @Column(name = "name", length = 100)
     private String name;
+    @Column(name = "introduction", length = 200)
     private String introduction;
     @CreationTimestamp
+    @Column(name = "createdAt")
     private LocalDateTime createdAt;
     @UpdateTimestamp
+    @Column(name = "updatedAt")
     private LocalDateTime updatedAt;
 
 }

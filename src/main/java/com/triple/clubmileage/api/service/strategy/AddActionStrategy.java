@@ -61,7 +61,7 @@ public class AddActionStrategy implements ReviewStrategy {
                 mileageDtos.add(mileageDto);
             }
             // 리뷰 이미지 첨부 마일리지
-            if (reviewEntity.getImageEntities().size() > 0) {
+            if (!isEmpty(reviewEntity.getImageEntities()) && reviewEntity.getImageEntities().size() > 0) {
                 MileageDto mileageDto = MileageDtoMapper.INSTANCE.reviewEntityToMileageDto(reviewEntity, MileageType.REVIEW_IMAGE_ATTACH);
                 mileageDtos.add(mileageDto);
             }
