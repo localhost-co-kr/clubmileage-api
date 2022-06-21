@@ -22,14 +22,13 @@ public class MileageService {
     private final MileageDtoMapper mileageDtoMapper;
     private final MileageRepository mileageRepository;
 
-    public String mileageProcessing(List<MileageDto> mileageDtos) {
+    public boolean mileageProcessing(List<MileageDto> mileageDtos) {
         List<MileageEntity> mileageEntities = mileageDtos.stream()
                 .map(mileageDtoMapper::fromMileageDto)
                 .collect(Collectors.toList());
 
         mileageRepository.saveAll(mileageEntities);
-        // TODO: response modeling
-        return "ok";
+        return true;
     }
 
     public Mono<MileageRetrieveResponse> retrieveMileage(UUID userId) {

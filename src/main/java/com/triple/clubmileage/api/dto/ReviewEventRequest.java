@@ -1,19 +1,24 @@
 package com.triple.clubmileage.api.dto;
 
+import static org.springframework.util.ObjectUtils.isEmpty;
+
 import com.triple.clubmileage.api.enumtype.ActionType;
 import com.triple.clubmileage.api.enumtype.EventType;
-import lombok.Getter;
-import lombok.Setter;
-
-import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
-
-import static org.springframework.util.ObjectUtils.isEmpty;
+import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ReviewEventRequest {
 
     @NotNull(message = "type 값이 올바르지 않습니다.")
