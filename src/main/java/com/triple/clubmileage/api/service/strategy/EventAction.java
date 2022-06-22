@@ -24,7 +24,6 @@ public class EventAction {
         CompletableFuture.supplyAsync(() -> mileageService.mileageProcessing(mileageDtos))
             .thenAccept(isSuccess -> log.info("mileage processing response = [{}]", isSuccess));
 
-        // TODO: response modeling
         return "ok";
     }
 }

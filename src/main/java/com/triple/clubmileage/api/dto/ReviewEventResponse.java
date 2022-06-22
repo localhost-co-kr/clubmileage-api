@@ -7,5 +7,5 @@ import lombok.Getter;
 @AllArgsConstructor(staticName = "of")
 public class ReviewEventResponse {
 
-    private String reviewId;
+    private String result;
 }

@@ -32,6 +32,21 @@
 
 ---
 
+## Remarks
+
+* RestApi 에 대한 설계가 요구사항이지만 POST 만을 이용만 하기때문에 전문을 달리하기위해 Request의 validation 을 추가함
+
+|ActionType|Request Example|
+|:---------|:--------------|
+|ADD|`{"type":"REVIEW","action":"ADD","content":"좋아요!","attachedPhotoIds":["3fa85f64-5717-4562-b3fc-2c963f66afa6"],"userId":"3fa85f64-5717-4562-b3fc-2c963f66afa6","placeId":"141a82ab-1cc5-4fce-bf2d-c5d395932177"}`|
+|MOD|`{"type":"REVIEW","action":"MOD","reviewId":"b47dccfd-0ee6-4ba7-bfd5-393dc42eb414","content":"별로에요!","attachedPhotoIds":["3fa85f64-5717-4562-b3fc-2c963f66afa6"],"userId":"3fa85f64-5717-4562-b3fc-2c963f66afa6","placeId":"141a82ab-1cc5-4fce-bf2d-c5d395932177"}`|
+|DELETE|`{"type":"REVIEW","action":"DELETE","reviewId":"a5c436b8-474c-4736-9a00-7caf2879161f","userId":"3fa85f64-5717-4562-b3fc-2c963f66afa6","placeId":"141a82ab-1cc5-4fce-bf2d-c5d395932177"}`|
+
+* 장소에 대한 기본 데이터셋이 존재함 `classpath:data.sql`
+* DDL 은 `classpath:schema.sql` 에 작성됨
+
+---
+
 ## Screenshot
 
 * **Monitoring (ELK with Kafka)**
